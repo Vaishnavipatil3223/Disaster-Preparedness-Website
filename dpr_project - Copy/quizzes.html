@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disaster Quizzes & Leaderboard</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #1e88e5;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  padding: 20px;
+}
+.select-disaster {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.select-disaster select {
+  padding: 10px;
+  font-size: 16px;
+}
+.quiz-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+.quiz-question {
+  font-size: 18px;
+  font-weight: bold;
+}
+.options {
+  margin-top: 10px;
+}
+.options button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #f1f1f1;
+  transition: background 0.2s;
+}
+.options button:hover {
+  background: #ddd;
+}
+.options button.correct {
+  background: #4caf50;
+  color: white;
+}
+.options button.wrong {
+  background: #f44336;
+  color: white;
+}
+.leaderboard {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.leaderboard h2 {
+  text-align: center;
+}
+.leaderboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.leaderboard table, th, td {
+  border: 1px solid #ddd;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: #1e88e5;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Disaster Quizzes & Leaderboard</h1>
+</header>
+
+<div class="container">
+  <div class="select-disaster">
+    <label for="disasterSelect">Select Disaster:</label>
+    <select id="disasterSelect">
+      <option value="">--Choose Disaster--</option>
+      <option value="flood">Flood</option>
+      <option value="landslide">Landslide</option>
+      <option value="gas">Gas Leak</option>
+      <option value="fire">Fire</option>
+      <option value="air">Air Pollution</option>
+    </select>
+  </div>
+
+  <div id="quiz-container" class="quiz-card" style="display:none;">
+    <div class="quiz-question" id="question"></div>
+    <div class="options" id="options"></div>
+    <button id="nextBtn" style="margin-top:10px;padding:10px 20px;">Next Question</button>
+  </div>
+
+  <div class="leaderboard">
+    <h2>Leaderboard</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Score</th><th>Disaster</th></tr>
+      </thead>
+      <tbody id="leaderboardBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const quizzes = {
+  flood: [
+    { q: "What should you do when flood warning is issued?", a: ["Evacuate immediately","Stay indoors","Go swimming"], correct: 0 },
+    { q: "Where should valuables be kept before flood?", a: ["Basement","High ground","Kitchen"], correct: 1 },
+    { q: "Which emergency kit is essential during a flood?", a: ["Food, water, first aid","TV, sofa, books","Candles only"], correct: 0 },
+    { q: "Should you walk through flood water?", a: ["Yes","No","Sometimes"], correct: 1 },
+    { q: "Floodwaters can carry?", a: ["Debris and germs","Nothing dangerous","Only clean water"], correct: 0 },
+    { q: "Driving through flooded roads is?", a: ["Safe","Extremely dangerous","Moderate"], correct: 1 },
+    { q: "How to turn off electricity before flood?", a: ["Unplug devices","Ignore it","Keep lights on"], correct: 0 },
+    { q: "Flood insurance helps with?", a: ["Property damage","Vacation","Cooking"], correct: 0 },
+    { q: "Listen to which alerts?", a: ["TV shows","Official weather alerts","Radio ads"], correct: 1 },
+    { q: "After flood, drink?", a: ["Bottled water","River water","Any water"], correct: 0 },
+    { q: "Flood water may contain?", a: ["Chemicals and bacteria","Freshwater","Nothing"], correct: 0 },
+    { q: "Evacuation route should be?", a: ["Planned and safe","Random","Longest path"], correct: 0 }
+  ],
+  landslide: [
+    { q: "Landslides often occur during?", a: ["Heavy rain","Sunny day","Winter only"], correct: 0 },
+    { q: "Which slope is risky?", a: ["Steep and unstable","Flat","Low slope"], correct: 0 },
+    { q: "Warning signs of landslide?", a: ["Cracks in ground","Stable soil","Flowers blooming"], correct: 0 },
+    { q: "During landslide, you should?", a: ["Evacuate quickly","Stand under trees","Drive fast"], correct: 0 },
+    { q: "Listen to?", a: ["Official alerts","Music","News gossip"], correct: 0 },
+    { q: "Avoid which area?", a: ["Slopes and riverbanks","Home","Shopping mall"], correct: 0 },
+    { q: "Emergency kit includes?", a: ["Food, water, first aid","Candies","Shoes only"], correct: 0 },
+    { q: "Do not cross?", a: ["Landslide debris","Safe paths","Paved road"], correct: 0 },
+    { q: "After landslide, check?", a: ["Gas leaks and injuries","Nothing","TV"], correct: 0 },
+    { q: "Safe evacuation route?", a: ["High ground","Near cliff","Slope"], correct: 0 },
+    { q: "Landslides are triggered by?", a: ["Heavy rain and earthquakes","Sunny weather","Snow only"], correct: 0 },
+    { q: "During warning, stay?", a: ["Safe location","Near slope","Basement"], correct: 0 }
+  ],
+  gas: [
+    { q: "Gas leak first step?", a: ["Open windows","Light a match","Ignore it"], correct: 0 },
+    { q: "LPG is?", a: ["Highly flammable","Safe","Toxic only"], correct: 0 },
+    { q: "Smell of gas indicates?", a: ["Leak","Nothing","Safe area"], correct: 0 },
+    { q: "During gas leak, avoid?", a: ["Switching on electronics","Open windows","Evacuate"], correct: 0 },
+    { q: "Emergency number to call?", a: ["Fire department","Friend","Bank"], correct: 0 },
+    { q: "Gas detector indicates?", a: ["Leak detected","Safe air","Music"], correct: 0 },
+    { q: "Ventilate area by?", a: ["Opening doors and windows","Closing everything","Using match"], correct: 0 },
+    { q: "Do not use?", a: ["Electrical switches","Open windows","Call help"], correct: 0 },
+    { q: "Symptoms of gas exposure?", a: ["Dizziness, headache","Hunger","Sleepiness only"], correct: 0 },
+    { q: "Evacuation should be?", a: ["Immediate and safe","Slow","Ignore"], correct: 0 },
+    { q: "After gas leak, check?", a: ["Gas supply off","TV","Lights"], correct: 0 },
+    { q: "Gas leak detection requires?", a: ["Proper ventilation","Open flame","Nothing"], correct: 0 }
+  ],
+  fire: [
+    { q: "First step during fire?", a: ["Evacuate","Call friend","Stay inside"], correct: 0 },
+    { q: "Use which extinguisher for electrical fire?", a: ["CO2 extinguisher","Water extinguisher","Foam extinguisher"], correct: 0 },
+    { q: "Safe distance from fire?", a: ["100 meters","10 meters","1 meter"], correct: 0 },
+    { q: "Stop, Drop, and Roll is for?", a: ["Clothing fire","Gas leak","Flood"], correct: 0 },
+    { q: "Fire exits should be?", a: ["Clear and accessible","Blocked","Hidden"], correct: 0 },
+    { q: "Smoke inhalation is?", a: ["Dangerous","Safe","Healthy"], correct: 0 },
+    { q: "Use water on which fire?", a: ["Wood or paper","Electrical fire","Oil fire"], correct: 0 },
+    { q: "Fire alarm indicates?", a: ["Evacuate","Safe","Sleep"], correct: 0 },
+    { q: "Do not use?", a: ["Elevators during fire","Stairs","Windows"], correct: 0 },
+    { q: "Fire extinguisher should be?", a: ["Checked regularly","Ignored","Hidden"], correct: 0 },
+    { q: "Cover nose with?", a: ["Cloth","Hands","Nothing"], correct: 0 },
+    { q: "Call emergency after?", a: ["Evacuating safely","Playing","Sleeping"], correct: 0 }
+  ],
+  air: [
+    { q: "AQI stands for?", a: ["Air Quality Index","Air Quick Indicator","Atmosphere Quality Indicator"], correct: 0 },
+    { q: "High AQI indicates?", a: ["Poor air quality","Good air","Nothing"], correct: 0 },
+    { q: "Limit outdoor activity when?", a: ["AQI is high","AQI is low","AQI is normal"], correct: 0 },
+    { q: "Wear mask during?", a: ["Pollution","Sunny day","Rain only"], correct: 0 },
+    { q: "Sensitive groups include?", a: ["Children, elderly, asthmatics","Everyone else","No one"], correct: 0 },
+    { q: "Air pollution comes from?", a: ["Vehicles and industry","Plants","Rivers"], correct: 0 },
+    { q: "Indoor air quality improves by?", a: ["Ventilation","Smoking indoors","Closed windows"], correct: 0 },
+    { q: "Reduce exposure by?", a: ["Avoid heavy traffic","Stay outside all day","Ignore it"], correct: 0 },
+    { q: "AQI categories include?", a: ["Good, Moderate, Unhealthy","Safe only","Danger only"], correct: 0 },
+    { q: "Check AQI via?", a: ["Official app or site","Guessing","News only"], correct: 0 },
+    { q: "Plants help?", a: ["Improve air quality","Pollute","Nothing"], correct: 0 },
+    { q: "During smog, do?", a: ["Stay indoors","Outdoor picnic","Drive more"], correct: 0 }
+  ]
+};
+
+let currentQuiz = [];
+let currentIndex = 0;
+let score = 0;
+let selectedDisaster = "";
+
+const disasterSelect = document.getElementById("disasterSelect");
+const quizContainer = document.getElementById("quiz-container");
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+const leaderboardBody = document.getElementById("leaderboardBody");
+
+disasterSelect.addEventListener("change", () => {
+  selectedDisaster = disasterSelect.value;
+  if (selectedDisaster && quizzes[selectedDisaster]) {
+    currentQuiz = quizzes[selectedDisaster];
+    currentIndex = 0;
+    score = 0;
+    quizContainer.style.display = "block";
+    showQuestion();
+  }
+});
+
+function showQuestion() {
+  const q = currentQuiz[currentIndex];
+  questionEl.textContent = q.q;
+  optionsEl.innerHTML = "";
+  q.a.forEach((option, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = option;
+    btn.addEventListener("click", () => checkAnswer(i));
+    optionsEl.appendChild(btn);
+  });
+}
+
+function checkAnswer(i) {
+  const q = currentQuiz[currentIndex];
+  if (i === q.correct) {
+    score++;
+    optionsEl.children[i].classList.add("correct");
+  } else {
+    optionsEl.children[i].classList.add("wrong");
+  }
+  Array.from(optionsEl.children).forEach(btn => btn.disabled = true);
+}
+
+nextBtn.addEventListener("click", () => {
+  currentIndex++;
+  if (currentIndex < currentQuiz.length) {
+    showQuestion();
+  } else {
+    saveScore();
+    quizContainer.style.display = "none";
+    loadLeaderboard();
+  }
+});
+
+function saveScore() {
+  const name = prompt("Enter your name for the leaderboard:") || "Anonymous";
+  const leaderboard = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+  leaderboard.push({ name, score, disaster: selectedDisaster });
+  leaderboard.sort((a,b) => b.score-a.score);
+  localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+function loadLeaderboard() {
+  const leaderboard = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+  leaderboardBody.innerHTML = "";
+  leaderboard.forEach(item => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${item.name}</td><td>${item.score}</td><td>${item.disaster}</td>`;
+    leaderboardBody.appendChild(tr);
+  });
+}
+
+loadLeaderboard();
+</script>
+
+</body>
+</html>

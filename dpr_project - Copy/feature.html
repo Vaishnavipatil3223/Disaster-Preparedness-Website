@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features - Rescue</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .navbar .logo span { font-size: 1.4rem; font-weight: 700; color: #00d1ff; }
+    nav ul { list-style: none; display: flex; gap: 25px; }
+    nav ul li a { text-decoration: none; color: #fff; font-weight: 500; transition: color 0.3s; }
+    nav ul li a:hover, nav ul li a.active { color: #00d1ff; }
+
+    .auth-buttons button {
+      margin-left: 10px;
+      background: #00d1ff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.3s ease;
+    }
+    .auth-buttons button:hover { background: #00a4cc; }
+
+    /* Features Section */
+    .features-section {
+      padding: 140px 10% 60px;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .section-title { font-size: 2.8rem; margin-bottom: 10px; color: #00d1ff; }
+    .section-subtitle { font-size: 1.1rem; margin-bottom: 50px; color: #cfd8dc; }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.05);
+      padding: 25px 20px;
+      border-radius: 15px;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .feature-card h2 { font-size: 1.3rem; margin-bottom: 12px; color: #00d1ff; }
+    .feature-card p { font-size: 0.95rem; color: #cfd8dc; line-height: 1.4; }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(0,209,255,0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) { .features-section { padding: 120px 5% 40px; } }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><span>🛟 RESCUE</span></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="feature.html" class="active">Features</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sensor-dashboard.html">Live Dashboard</a></li>
+      </ul>
+
+    </nav>
+     <button id="logoutBtn" style="
+  background:#ff5252;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-left:8px;
+  display:none;">Logout</button>
+    <div class="auth-buttons">
+      <a href="login.html"><button class="login">Login</button></a>
+      <a href="register.html"><button class="register">Register</button></a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h1 class="section-title">Key Features</h1>
+    <p class="section-subtitle">Powerful tools to strengthen disaster preparedness and response</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h2>📡 Real-time Alerts</h2>
+        <p>Instant notifications for earthquakes, floods, and emergencies to ensure rapid response and safety.</p>
+      </div>
+
+      <div class="feature-card">
+        <h2>🤝 Agency Coordination</h2>
+        <p>A unified platform that connects emergency response agencies for seamless collaboration.</p>
+      </div>
+
+      <div class="feature-card">
+        <h2>📊 Resource Management</h2>
+        <p>Track, allocate, and optimize resources such as shelters, equipment, and manpower effectively.</p>
+      </div>
+
+      <div class="feature-card">
+        <h2>🌍 GIS Mapping</h2>
+        <p>Interactive maps for disaster-affected areas to visualize impact zones and rescue routes.</p>
+      </div>
+
+      <div class="feature-card">
+        <h2>🧑‍🤝‍🧑 Volunteer Network</h2>
+        <p>Engage volunteers and communities to participate in disaster response and awareness programs.</p>
+      </div>
+
+      <div class="feature-card">
+        <h2>🔒 Secure Access</h2>
+        <p>Role-based login ensures that only authorized personnel manage sensitive operations.</p>
+      </div>
+    </div>
+  </section>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCG6mmAG4gP3zp2wLgejZ-TC2KcUVXxzsE",
+    authDomain: "disaster-iot-project.firebaseapp.com",
+    databaseURL: "https://disaster-iot-project-default-rtdb.firebaseio.com",
+    projectId: "disaster-iot-project",
+    storageBucket: "disaster-iot-project.firebasestorage.app",
+    messagingSenderId: "841074482057",
+    appId: "1:841074482057:web:8028d8b0302e364ede9f58"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      logoutBtn.style.display = "inline-block"; // Show logout
+      // Hide login/register links if needed:
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "none");
+    } else {
+      logoutBtn.style.display = "none"; // Hide logout
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "inline-block");
+    }
+  });
+
+  logoutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>

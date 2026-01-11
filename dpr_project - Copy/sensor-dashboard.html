@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IoT Sensor Dashboard</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 20px 0;
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <header>📊 IoT Live Disaster Monitoring Dashboard</header>
+
+  <!-- Embed your Bolt Dashboard -->
+  <iframe 
+    src="https://smart-campus-disaste-8umo.bolt.host/"
+    title="Bolt IoT Dashboard"
+    allowfullscreen>
+  </iframe>
+
+  <footer>Powered by IoT</footer>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - RESCUE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #222;
+      background: #f9fafc;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo span {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a.active,
+    nav ul li a:hover {
+      color: #007bff;
+    }
+
+    .auth-buttons button {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .login {
+      background: transparent;
+      border: 2px solid #007bff;
+      color: #007bff;
+    }
+
+    .login:hover {
+      background: #007bff;
+      color: white;
+    }
+
+    .register {
+      background: #007bff;
+      color: white;
+    }
+
+    .register:hover {
+      background: #0056b3;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(to right, #007bff, #00b4d8);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(30px); }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* ABOUT SECTION */
+    .about-section {
+      padding: 80px 10%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+    }
+
+    .about-text {
+      flex: 1 1 500px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .about-text h2 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .about-text p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .about-text ul {
+      list-style: none;
+    }
+
+    .about-text ul li {
+      background: #eef6ff;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-left: 5px solid #007bff;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .about-image {
+      flex: 1 1 400px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 1.2s ease;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0a0a0a;
+      color: #ccc;
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .about-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-text ul li {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><span>🛟 RESCUE</span></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="feature.html">Features</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="https://smart-campus-disaste-8umo.bolt.host/">Live Dashboard</a></li>
+      </ul>
+    </nav>
+    <button id="logoutBtn" style="
+  background:#ff5252;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-left:10px;
+  display:none;">Logout</button>
+
+    <div class="auth-buttons">
+      <a href="login.html"><button class="login">Login</button></a>
+      <a href="register.html"><button class="register">Register</button></a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>About <strong>RESCUE</strong></h1>
+    <p>Empowering communities with smarter disaster preparedness & response</p>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-text">
+      <h2>Our Mission</h2>
+      <p>
+        RESCUE is designed to enhance disaster preparedness and response by connecting 
+        communities, volunteers, and emergency response agencies on one unified digital platform. 
+        We aim to minimize the impact of natural disasters through faster communication,
+        real-time alerts, and efficient resource management.
+      </p>
+
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>⚡ Real-time alert system for quick response</li>
+        <li>🌍 Smart GIS mapping to visualize disaster zones</li>
+        <li>🤝 Seamless coordination between agencies & volunteers</li>
+        <li>🔒 Secure and scalable digital platform</li>
+      </ul>
+    </div>
+
+    <div class="about-image">
+      <img src="small.jpg" alt="About Rescue">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 RESCUE | Disaster Preparedness & Response System. All Rights Reserved.
+  </footer>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCG6mmAG4gP3zp2wLgejZ-TC2KcUVXxzsE",
+    authDomain: "disaster-iot-project.firebaseapp.com",
+    databaseURL: "https://disaster-iot-project-default-rtdb.firebaseio.com",
+    projectId: "disaster-iot-project",
+    storageBucket: "disaster-iot-project.firebasestorage.app",
+    messagingSenderId: "841074482057",
+    appId: "1:841074482057:web:8028d8b0302e364ede9f58"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      logoutBtn.style.display = "inline-block"; // Show logout
+      // Hide login/register links if needed:
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "none");
+    } else {
+      logoutBtn.style.display = "none"; // Hide logout
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "inline-block");
+    }
+  });
+
+  logoutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Rescue Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 6%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar .logo span { font-size: 1.5rem; font-weight: 700; color: #00d1ff; }
+    .navbar ul { display: flex; gap: 20px; list-style: none; }
+    .navbar ul li a { text-decoration: none; color: #fff; font-weight: 500; transition: color 0.3s; }
+    .navbar ul li a:hover { color: #00d1ff; }
+
+    .contact-section {
+      padding: 140px 6% 60px;
+      text-align: center;
+    }
+
+    .contact-section h1 { font-size: 2.5rem; color: #00d1ff; margin-bottom: 10px; }
+    .contact-section p { margin-bottom: 40px; color: #cfd8dc; font-size: 1rem; }
+
+    .contact-container {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255,255,255,0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: #ccc; }
+
+    .contact-form button {
+      padding: 12px;
+      background: #00d1ff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .contact-form button:hover { background: #00a4cc; }
+
+    .contact-info {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      transition: transform 0.3s, background 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .contact-card i {
+      font-size: 1.8rem;
+      color: #00d1ff;
+      margin-right: 15px;
+    }
+
+    .contact-card div strong { font-size: 1rem; color: #00d1ff; }
+    .contact-card div span { font-size: 0.9rem; color: #cfd8dc; }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      background: rgba(0,209,255,0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #ccc;
+      background: #111;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container { flex-direction: column; gap: 25px; }
+      .contact-section { padding: 120px 4% 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo"><span>🛟 Rescue</span></div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+  <button id="logoutBtn" style="
+  background:#ff5252;
+  color:white;
+  border:none;
+  padding:8px 15px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-left:10px;
+  display:none;">Logout</button>
+
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <h1>Get In Touch</h1>
+    <p>Have questions or need support? Fill out the form below or contact our emergency helpline.</p>
+
+    <div class="contact-container">
+
+      <!-- Contact Form -->
+      <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="text" placeholder="Subject" required>
+        <textarea placeholder="Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <div class="contact-card">
+          <i class="fa fa-phone"></i>
+          <div>
+            <strong>Emergency Helpline</strong>
+            <span>+91 12345 67890</span>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fa fa-envelope"></i>
+          <div>
+            <strong>Email Support</strong>
+            <span>support@rescue.com</span>
+          </div>
+        </div>
+        <div class="contact-card">
+          <i class="fa fa-map-marker-alt"></i>
+          <div>
+            <strong>Head Office</strong>
+            <span>Pune, India</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Rescue Dashboard. All rights reserved.
+  </footer>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCG6mmAG4gP3zp2wLgejZ-TC2KcUVXxzsE",
+    authDomain: "disaster-iot-project.firebaseapp.com",
+    databaseURL: "https://disaster-iot-project-default-rtdb.firebaseio.com",
+    projectId: "disaster-iot-project",
+    storageBucket: "disaster-iot-project.firebasestorage.app",
+    messagingSenderId: "841074482057",
+    appId: "1:841074482057:web:8028d8b0302e364ede9f58"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      logoutBtn.style.display = "inline-block"; // Show logout
+      // Hide login/register links if needed:
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "none");
+    } else {
+      logoutBtn.style.display = "none"; // Hide logout
+      document.querySelectorAll('a[href="login.html"], a[href="register.html"]').forEach(a => a.style.display = "inline-block");
+    }
+  });
+
+  logoutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+  });
+</script>
+
+</body>
+</html>

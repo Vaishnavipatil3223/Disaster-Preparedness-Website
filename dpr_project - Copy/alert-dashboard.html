@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disaster Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+    }
+
+    /* 🔹 Navbar */
+    nav {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 25px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #00aaff;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .auth-buttons button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .login-btn {
+      background: #007BFF;
+      color: white;
+    }
+    .login-btn:hover {
+      background: #0056b3;
+    }
+    .register-btn {
+      background: white;
+      color: #007BFF;
+    }
+    .register-btn:hover {
+      background: #e6e6e6;
+    }
+
+    /* 🔹 Header Hero */
+    header {
+      background: url('https://images.unsplash.com/photo-1526401281623-37939bbacd81?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    header h1 {
+      position: relative;
+      font-size: 36px;
+      z-index: 1;
+    }
+
+    /* 🔹 Search Bar */
+    #searchBar {
+      text-align: center;
+      margin: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    #cityInput {
+      padding: 12px 15px;
+      width: 280px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+    }
+    #cityInput:focus {
+      border-color: #007BFF;
+      box-shadow: 0px 4px 12px rgba(0,123,255,0.5);
+      transform: scale(1.03);
+    }
+    button {
+      padding: 12px 18px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* 🔹 Dashboard Cards */
+    /* 🔹 Dashboard Cards */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1300px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
+}
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+    .value {
+      font-size: 22px;
+      font-weight: bold;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔹 Navbar -->
+  <nav>
+    <div class="logo">🌍 DISASTER MANAGEMENT SYSTEM</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="feature.html">Feature</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+   
+  </nav>
+
+
+
+  <!-- 🔹 Interactive Search Bar -->
+  <div id="searchBar">
+    <input type="text" id="cityInput" placeholder="🔍 Enter your city (e.g. Delhi)">
+    <button onclick="searchCity()">Search</button>
+  </div>
+
+  <!-- 🔹 Dashboard -->
+  <!-- 🔹 Dashboard -->
+<div class="dashboard">
+  <div class="card"><h3>🌋 Earthquake</h3><div class="value" id="earthquake">--</div></div>
+  <div class="card"><h3>🌊 Flood Level</h3><div class="value" id="flood">--</div></div>
+  <div class="card"><h3>🌧 Rainfall</h3><div class="value" id="rain">--</div></div>
+  <div class="card"><h3>🌫 AQI</h3><div class="value" id="aqi">--</div></div>
+  <div class="card"><h3>☁ CO</h3><div class="value" id="co">--</div></div>
+  <div class="card"><h3>🌡 Temperature</h3><div class="value" id="temp">--</div></div>
+  <div class="card"><h3>💧 Humidity</h3><div class="value" id="humidity">--</div></div>
+  <div class="card"><h3>📉 Pressure</h3><div class="value" id="pressure">--</div></div>
+</div>
+
+
+  <!-- 🔹 JS for APIs (same as your code) -->
+  <script>
+    async function searchCity() {
+      let city = document.getElementById("cityInput").value;
+      if (!city) return alert("Please enter a city name");
+
+      let res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${city}`);
+      let data = await res.json();
+
+      if (data.length === 0) {
+        alert("City not found");
+        return;
+      }
+
+      let lat = data[0].lat;
+      let lon = data[0].lon;
+
+      loadEarthquake(lat, lon);
+      loadFlood();
+      loadWeather(lat, lon);
+      loadAir(city);
+    }
+
+    async function loadEarthquake(lat, lon) {
+      let res = await fetch("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson");
+      let data = await res.json();
+      let nearby = data.features.find(eq => {
+        let coords = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+        let dist = getDistance(lat, lon, coords[0], coords[1]);
+        return dist < 500;
+      });
+      if (nearby) {
+        let eq = nearby.properties;
+        document.getElementById("earthquake").innerHTML = eq.mag + " Richter<br><small>" + eq.place + "</small>";
+      } else {
+        document.getElementById("earthquake").innerHTML = "Safe ✅";
+      }
+    }
+
+    function loadFlood() {
+      let level = (Math.random() * 100).toFixed(2);
+      document.getElementById("flood").innerHTML = level + " %";
+    }
+
+    async function loadWeather(lat, lon) {
+      let res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,pressure_msl,precipitation`);
+      let data = await res.json();
+      document.getElementById("temp").innerHTML = data.hourly.temperature_2m[0] + " °C";
+      document.getElementById("humidity").innerHTML = data.hourly.relative_humidity_2m[0] + " %";
+      document.getElementById("pressure").innerHTML = data.hourly.pressure_msl[0] + " hPa";
+      document.getElementById("rain").innerHTML = data.hourly.precipitation[0] + " mm/hr";
+    }
+
+    async function loadAir(city) {
+      let res = await fetch(`https://api.openaq.org/v2/latest?limit=1&page=1&offset=0&sort=desc&city=${city}`);
+      let data = await res.json();
+      if (data.results.length > 0) {
+        let measurements = data.results[0].measurements;
+        let aqi = measurements.find(m => m.parameter === "pm25")?.value || "N/A";
+        let co = measurements.find(m => m.parameter === "co")?.value || "N/A";
+        document.getElementById("aqi").innerHTML = aqi;
+        document.getElementById("co").innerHTML = co + " ppm";
+      } else {
+        document.getElementById("aqi").innerHTML = "N/A";
+        document.getElementById("co").innerHTML = "N/A";
+      }
+    }
+
+    function getDistance(lat1, lon1, lat2, lon2) {
+      let R = 6371;
+      let dLat = (lat2 - lat1) * Math.PI / 180;
+      let dLon = (lon2 - lon1) * Math.PI / 180;
+      let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLon/2) * Math.sin(dLon/2);
+      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+  </script>
+</body>
+</html>
